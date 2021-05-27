@@ -17,15 +17,10 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 # CONNECT TO DB
-if os.environ.get("DATABASE_URL"):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-
 # SQLite database for development
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-# Switch to PostgreSQL for deployment
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+# Switch to PostgreSQL for deployment - this will use sqlite database if run locally
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
